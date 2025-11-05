@@ -22,14 +22,14 @@ export default function OurContacts() {
     {
       title: "EMAIL SUPPORT",
       availability: "Available Monday to Saturday, 9 AM - 5 PM",
-      content: [{ label: "edurght@wecool.com", type: "email" }],
+      content: [{ label: "info@sunpay.com", type: "email" }],
     },
     {
       title: "PHONE/CHAT SUPPORT",
       availability: "Available Monday to Saturday, 9 AM - 5 PM",
       content: [
-        { label: "(+234) 709 7866 346", type: "phone" },
-        { label: "(+234) 814 5678 843", type: "phone" },
+        { label: "(+234) 802 772 3084", type: "phone" },
+        { label: "(+234) 802 772 3084", type: "phone" },
       ],
     },
     {
@@ -136,7 +136,7 @@ export default function OurContacts() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="absolute left-3 text-gray-500 hover:text-gray-700"
+              className="absolute left-3 text-gray-500 hover:text-gray-700 z-10"
               aria-label="Attach file"
             >
               <svg
@@ -157,11 +157,11 @@ export default function OurContacts() {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your message..."
               title="Enter your message for SunPay NG"
-              className="flex-1 border border-gray-300 rounded-lg pl-10 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-700"
+              className="w-full max-w-[200px] sm:max-w-none border border-gray-300 rounded-lg pl-10 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-700"
             />
             <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" />
             <button
-              className="bg-yellow-400 hover:bg-yellow-500 text-white p-3 rounded-lg flex items-center justify-center transition"
+              className="bg-yellow-400 hover:bg-yellow-500 text-white p-3 rounded-lg flex items-center justify-center transition flex-shrink-0"
               onClick={handleSendMessage}
               aria-label="Send message"
             >

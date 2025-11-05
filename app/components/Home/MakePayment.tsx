@@ -164,15 +164,9 @@ export default function MakePayment() {
       className="py-12 px-4 sm:px-6 md:px-8 lg:px-12 mt-10"
     >
       <div
-        className={`relative max-w-[1400px] mx-auto rounded-3xl overflow-hidden bg-cover bg-center flex items-center justify-center transition-all duration-500 ease-in-out
-        ${
-          paymentMethod === "card"
-            ? "min-h-[160vh] sm:min-h-[125vh]"
-            : "min-h-[130vh] sm:min-h-[115vh]"
-        }`}
-        style={{
-          backgroundImage: "url('/images/lady-phone.jpg')",
-        }}
+        className={`relative max-w-[1400px] mx-auto rounded-3xl overflow-hidden bg-cover bg-center flex items-center justify-center transition-all duration-700 ease-in-out
+        ${paymentMethod === "card" ? "min-h-[160vh] sm:min-h-[125vh]" : "min-h-[130vh] sm:min-h-[115vh]"}`}
+        style={{ backgroundImage: "url('/images/lady-phone.jpg')" }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/60" />

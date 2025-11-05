@@ -9,6 +9,7 @@ export default function AddMoney() {
   const [copied, setCopied] = useState(false)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [payWithCard, setPayWithCard] = useState(false) // new state for card toggle
 
   const accountNumber = "123456789"
   const accountName = "SunPay NG"
@@ -135,7 +136,8 @@ export default function AddMoney() {
   return (
     <section id="add-money" className="py-12 px-4 sm:px-6 md:px-8 lg:px-12 mt-10 font-[Poppins]">
       <div
-        className="relative max-w-[1400px] mx-auto rounded-3xl overflow-hidden flex items-center justify-center bg-cover bg-center min-h-[130vh] sm:min-h-[115vh]"
+        className={`relative max-w-[1400px] mx-auto rounded-3xl overflow-hidden flex items-center justify-center bg-cover bg-center transition-all duration-700 ease-in-out
+        ${payWithCard ? "min-h-[160vh] sm:min-h-[125vh]" : "min-h-[130vh] sm:min-h-[115vh]"}`}
         style={{ backgroundImage: "url('/images/lady-phone2.jpg')" }}
       >
         {/* Overlay */}
@@ -158,7 +160,10 @@ export default function AddMoney() {
               </button>
             ) : (
               <button
-                onClick={() => setIsDrawerOpen(true)}
+                onClick={() => {
+                  setIsDrawerOpen(true)
+                  setPayWithCard(true) // increase background height when drawer opens
+                }}
                 className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg transition hover:bg-yellow-500"
               >
                 Add Money
@@ -183,7 +188,10 @@ export default function AddMoney() {
               }`}
             >
               <button
-                onClick={() => setIsDrawerOpen(false)}
+                onClick={() => {
+                  setIsDrawerOpen(false)
+                  setPayWithCard(false) // reset background height
+                }}
                 className="absolute top-4 right-4 text-gray-700 text-2xl font-bold"
               >
                 ×

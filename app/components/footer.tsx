@@ -15,7 +15,7 @@ export default function Footer() {
             <div className="md:col-span-1">
               <h3 className="text-2xl font-bold mb-4">SunPay</h3>
               <p className="text-sm leading-relaxed text-black/90">
-                SunPay makes it effortless to pay directly from your device — whether it's topping up your wallet, sending money to friends, or managing bills. Secure, fast, and designed to simplify your daily financial activities.
+                SunPay makes it effortless to pay directly from your device — whether it&apos;s topping up your wallet, sending money to friends, or managing bills. Secure, fast, and designed to simplify your daily financial activities.
               </p>
             </div>
 
@@ -65,8 +65,8 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Image src="/images/call.png" alt="Phone" width={18} height={18} className="flex-shrink-0" />
-                  <a href="tel:+2348162367679" className="text-sm text-black/90 hover:text-black transition-colors">
-                    (+234) 234 567 8901
+                  <a href="tel:+2348027723084" className="text-sm text-black/90 hover:text-black transition-colors">
+                    (+234) 802 772 3084
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
