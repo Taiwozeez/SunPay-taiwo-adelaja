@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation"
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("make-payment")
+  const [notifOpen, setNotifOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
 
@@ -17,7 +18,14 @@ export default function Header() {
     { id: "help", label: "Help", path: "/help" },
   ]
 
-  // Track active section on scroll and active page links
+  const notifications = [
+    "Payment Successful",
+    "New Offer Available",
+    "Wallet Credited",
+    "Subscription Due",
+    "Security Alert",
+  ]
+
   useEffect(() => {
     const handleScroll = () => {
       navItems.forEach(({ id, path }) => {
@@ -35,7 +43,7 @@ export default function Header() {
       })
     }
 
-    handleScroll() // run once on load
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [pathname])
@@ -51,6 +59,50 @@ export default function Header() {
       router.push(path)
     }
   }
+
+  const NotificationBell = () => (
+    <div className="relative">
+      <button
+        type="button"
+        aria-label="Notifications"
+        onClick={() => setNotifOpen(!notifOpen)}
+        className="relative focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-black hover:text-gray-800 transition"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6.002 6.002 0 00-5-5.917V4a2 2 0 10-4 0v1.083A6.002 6.002 0 004 11v3c0 .386-.149.735-.395 1.001L2 17h5m0 0v1a3 3 0 006 0v-1m-6 0h6"
+          />
+        </svg>
+        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">
+          {notifications.length}
+        </span>
+      </button>
+
+      {notifOpen && (
+        <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+          <ul className="divide-y divide-gray-200">
+            {notifications.map((notif, idx) => (
+              <li
+                key={idx}
+                className="px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
+              >
+                {notif}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
 
   return (
     <>
@@ -83,11 +135,12 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Desktop Sign In */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Desktop Sign In + Notifications */}
+          <div className="hidden lg:flex items-center gap-4 relative">
             <button className="bg-black border border-yellow-400 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors">
               Sign In
             </button>
+            <NotificationBell />
           </div>
 
           {/* Mobile Menu Button */}
@@ -95,6 +148,7 @@ export default function Header() {
             <button className="bg-black border border-yellow-400 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors">
               Sign In
             </button>
+            <NotificationBell />
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
