@@ -1,21 +1,26 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { usePathname, useRouter } from "next/navigation"
+import Image from "next/image"
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("make-payment")
   const [signInOpen, setSignInOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
+  const [imageError, setImageError] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+  const profileRef = useRef<HTMLDivElement>(null)
 
   const navItems = [
     { id: "make-payment", label: "Make Payment", path: "/#make-payment" },
     { id: "add-money", label: "Add Money", path: "/#add-money" },
     { id: "check-payment-history", label: "Payment History/Keycode", path: "/payment-history" },
     { id: "how-it-works", label: "How It Works", path: "/#how-it-works" },
+    { id: "account", label: "Account", path: "/account-details" },
     { id: "help", label: "Help", path: "/help" },
   ]
 
@@ -26,6 +31,9 @@ export default function Header() {
     "Subscription Due",
     "Security Alert",
   ]
+
+  // Profile avatar image path
+  const avatarImagePath = "/images/student-avatar4.jpg" // Update this path to your actual avatar image
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,6 +54,26 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [pathname])
 
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      
+      if (dropdownOpen && !target.closest('.notification-bell')) {
+        setDropdownOpen(false)
+      }
+      
+      if (profileDropdownOpen && profileRef.current && !profileRef.current.contains(target)) {
+        setProfileDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dropdownOpen, profileDropdownOpen])
+
   const handleNavClick = (path: string, id?: string) => (e: React.MouseEvent) => {
     e.preventDefault()
     setMobileMenuOpen(false)
@@ -58,27 +86,31 @@ export default function Header() {
   }
 
   const handleBellClick = () => {
-    // Stop the auto-pop notifications when bell is clicked
     if (window.stopNotifications) {
       window.stopNotifications()
     }
     setDropdownOpen(!dropdownOpen)
   }
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement
-      if (dropdownOpen && !target.closest('.notification-bell')) {
-        setDropdownOpen(false)
-      }
-    }
+  const handleProfileClick = () => {
+    setProfileDropdownOpen(!profileDropdownOpen)
+  }
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [dropdownOpen])
+  const handleLogout = () => {
+    setProfileDropdownOpen(false)
+    // Add logout logic here
+    console.log("Logging out...")
+  }
+
+  const handleProfile = () => {
+    setProfileDropdownOpen(false)
+    // Add profile navigation logic here
+    console.log("Navigating to profile...")
+  }
+
+  const handleImageError = () => {
+    setImageError(true)
+  }
 
   // Notification Bell Component
   const NotificationBell = () => (
@@ -100,7 +132,7 @@ export default function Header() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6.002 6.002 0 00-5-5.917V4a2 2 0 10-4 0v1.083A6.002 6.002 0 004 11v3c0 .386-.149.735-.395 1.001L2 17h5m0 0v1a3 3 0 006 0v-1m-6 0h6"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
           />
         </svg>
         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -108,7 +140,6 @@ export default function Header() {
         </span>
       </button>
 
-      {/* Dropdown List - Now works on both desktop and mobile */}
       {dropdownOpen && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-slideDown">
           <div className="p-2">
@@ -123,6 +154,60 @@ export default function Header() {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+
+  // Profile Avatar Component
+  const ProfileAvatar = () => (
+    <div className="relative" ref={profileRef}>
+      <button
+        type="button"
+        aria-label="Profile menu"
+        onClick={handleProfileClick}
+        className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-colors focus:outline-none"
+      >
+        {/* Optimized Avatar Image with Next.js Image component */}
+        {!imageError ? (
+          <Image 
+            src={avatarImagePath} 
+            alt="User avatar"
+            width={32}
+            height={32}
+            className="w-full h-full object-cover"
+            onError={handleImageError}
+            priority={false}
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-800 text-white font-semibold text-sm flex items-center justify-center">
+            U
+          </div>
+        )}
+      </button>
+
+      {profileDropdownOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-slideDown">
+          <div className="py-1">
+            <button
+              onClick={handleProfile}
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              Profile
+            </button>
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Log Out
+            </button>
           </div>
         </div>
       )}
@@ -178,6 +263,7 @@ export default function Header() {
               Sign In
             </button>
             <NotificationBell />
+            <ProfileAvatar />
           </div>
 
           <div className="lg:hidden flex items-center gap-4">
@@ -189,8 +275,8 @@ export default function Header() {
               Sign In
             </button>
             
-            {/* Mobile Notification Bell - Now with dropdown */}
             <NotificationBell />
+            <ProfileAvatar />
 
             <button
               type="button"
@@ -221,9 +307,9 @@ export default function Header() {
                     key={id}
                     href={path}
                     onClick={handleNavClick(path, id)}
-                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors relative ${
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                       activeSection === id
-                        ? "after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-black"
+                        ? "bg-black text-white" // Black background for active nav on mobile
                         : "hover:bg-yellow-400"
                     }`}
                   >
