@@ -15,7 +15,6 @@ declare global {
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("make-payment")
-  const [signInOpen, setSignInOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
   const [imageError, setImageError] = useState(false)
@@ -91,6 +90,12 @@ export default function Header() {
     } else {
       router.push(path)
     }
+  }
+
+  const handleSignIn = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setMobileMenuOpen(false)
+    router.push("/login")
   }
 
   const handleBellClick = () => {
@@ -177,29 +182,6 @@ export default function Header() {
     open: {
       opacity: 1,
       transition: {
-        duration: 0.3
-      }
-    }
-  }
-
-  const modalVariants = {
-    closed: {
-      opacity: 0,
-      scale: 0.8,
-      transition: {
-        type: "spring" as const,
-        stiffness: 400,
-        damping: 40,
-        duration: 0.2
-      }
-    },
-    open: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 400,
-        damping: 40,
         duration: 0.3
       }
     }
@@ -407,7 +389,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-4 relative">
             <button
               aria-label="Sign In"
-              onClick={() => setSignInOpen(true)}
+              onClick={handleSignIn}
               className="bg-black border border-yellow-400 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors"
             >
               Sign In
@@ -419,7 +401,7 @@ export default function Header() {
           <div className="lg:hidden flex items-center gap-4">
             <button
               aria-label="Sign In"
-              onClick={() => setSignInOpen(true)}
+              onClick={handleSignIn}
               className="bg-black border border-yellow-400 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors"
             >
               Sign In
@@ -496,75 +478,6 @@ export default function Header() {
                     </motion.a>
                   ))}
                 </motion.nav>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-
-        {/* Sign In Modal with Framer Motion */}
-        <AnimatePresence>
-          {signInOpen && (
-            <>
-              <motion.div
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-                variants={overlayVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                onClick={() => setSignInOpen(false)}
-              />
-              <motion.div
-                className="fixed inset-0 z-50 flex items-center justify-center"
-                variants={modalVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-              >
-                <div className="bg-white rounded-xl w-full max-w-md p-6 relative shadow-lg" onClick={(e) => e.stopPropagation()}>
-                  <button
-                    onClick={() => setSignInOpen(false)}
-                    aria-label="Close modal"
-                    className="absolute top-4 right-4 text-gray-700 text-2xl font-bold hover:text-gray-900 transition-colors"
-                  >
-                    ×
-                  </button>
-                  <h2 className="text-2xl font-bold mb-6 text-gray-900 text-center">Sign In</h2>
-                  <form className="space-y-4">
-                    <div>
-                      <label htmlFor="username" className="block text-gray-700 font-semibold mb-1">
-                        Lamp Number / Phone Number
-                      </label>
-                      <input
-                        id="username"
-                        type="text"
-                        placeholder="Enter your lamp number or phone"
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
-                        Password
-                      </label>
-                      <input
-                        id="password"
-                        type="password"
-                        placeholder="Enter your password"
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
-                      />
-                    </div>
-                    <motion.button
-                      type="submit"
-                      className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2.5 rounded-lg transition"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Sign In
-                    </motion.button>
-                  </form>
-                  <p className="mt-4 text-sm text-gray-600 text-center">
-                    Don&#39;t have an account? <a href="#" className="text-yellow-500 hover:underline">Register</a>
-                  </p>
-                </div>
               </motion.div>
             </>
           )}

@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation"
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const router = useRouter()
 
   const slides = [
     {
@@ -93,6 +95,11 @@ export default function HeroSection() {
     }
   }
 
+  // Navigate to sign-up page
+  const handleSignUp = () => {
+    router.push("/sign-up")
+  }
+
   return (
     <section className="relative w-full h-screen flex items-center justify-center text-white overflow-hidden">
       {/* Background Carousel Images with Framer Motion */}
@@ -158,6 +165,7 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 1.1 }}
             >
               <motion.button 
+                onClick={handleSignUp}
                 className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold transition-colors"
                 whileHover={{ 
                   scale: 1.05,
