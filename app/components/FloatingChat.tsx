@@ -54,7 +54,7 @@ const messageVariants = {
       scale: 1.1,
       y: -2,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 10
       }
@@ -62,7 +62,7 @@ const messageVariants = {
     tap: {
       scale: 0.95,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 10
       }
@@ -76,7 +76,7 @@ const messageVariants = {
       transition: {
         duration: 2,
         repeat: Infinity,
-        ease: "easeOut"
+        ease: "easeOut" as const
       }
     },
     pulse2: {
@@ -85,7 +85,7 @@ const messageVariants = {
       transition: {
         duration: 2,
         repeat: Infinity,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         delay: 0.3
       }
     }
@@ -96,7 +96,7 @@ const messageVariants = {
     transition: {
       duration: 3,
       repeat: Infinity,
-      ease: "easeInOut"
+      ease: "easeInOut" as const
     }
   }
 
@@ -106,7 +106,7 @@ const messageVariants = {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 20,
         delay: 0.5
@@ -175,7 +175,7 @@ const messageVariants = {
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut" as const
             }}
           >
             <motion.svg
@@ -187,7 +187,7 @@ const messageVariants = {
                 scale: 1.1,
                 rotate: 5
               }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
             >
               <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" />
             </motion.svg>
