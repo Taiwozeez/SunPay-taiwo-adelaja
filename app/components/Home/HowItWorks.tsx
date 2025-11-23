@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image" // Added Image import
 
 export default function HowItWorks() {
   return (
@@ -9,9 +10,11 @@ export default function HowItWorks() {
         {/* Left Side - Video-style Image */}
         <div className="flex-1 flex justify-center lg:justify-start">
           <div className="relative w-full max-w-lg rounded-xl overflow-hidden shadow-lg">
-            <img
+            <Image // Replaced img with Next.js Image
               src="/images/man-phone2.jpg"
               alt="Video Preview"
+              width={600}
+              height={400}
               className="w-full h-auto object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -26,7 +29,7 @@ export default function HowItWorks() {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeOut"
+                    ease: "easeOut" as const
                   }}
                 />
                 <motion.span 
@@ -38,7 +41,7 @@ export default function HowItWorks() {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeOut",
+                    ease: "easeOut" as const,
                     delay: 0.3
                   }}
                 />
@@ -60,7 +63,7 @@ export default function HowItWorks() {
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut"
+                    ease: "easeInOut" as const
                   }}
                 >
                   <motion.svg
@@ -75,7 +78,7 @@ export default function HowItWorks() {
                     transition={{
                       duration: 1.5,
                       repeat: Infinity,
-                      ease: "easeInOut"
+                      ease: "easeInOut" as const
                     }}
                   >
                     <motion.circle 
@@ -90,7 +93,7 @@ export default function HowItWorks() {
                       transition={{
                         duration: 2,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "easeInOut" as const
                       }}
                     />
                     <motion.polygon 
@@ -102,7 +105,7 @@ export default function HowItWorks() {
                       transition={{
                         duration: 2,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "easeInOut" as const
                       }}
                     />
                   </motion.svg>

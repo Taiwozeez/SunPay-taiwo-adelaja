@@ -5,6 +5,13 @@ import { usePathname, useRouter } from "next/navigation"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 
+// Extend Window interface to include stopNotifications
+declare global {
+  interface Window {
+    stopNotifications?: () => void;
+  }
+}
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("make-payment")
@@ -53,7 +60,7 @@ export default function Header() {
     handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [pathname])
+  }, [pathname, navItems]) // Added navItems to dependencies
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -117,7 +124,7 @@ export default function Header() {
       opacity: 0,
       scale: 0.95,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 40,
         duration: 0.2
@@ -127,7 +134,7 @@ export default function Header() {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 40,
         duration: 0.3
@@ -141,7 +148,7 @@ export default function Header() {
       y: -10,
       scale: 0.95,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 500,
         damping: 40,
         duration: 0.2
@@ -152,7 +159,7 @@ export default function Header() {
       y: 0,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 500,
         damping: 40,
         duration: 0.3
@@ -180,7 +187,7 @@ export default function Header() {
       opacity: 0,
       scale: 0.8,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 40,
         duration: 0.2
@@ -190,7 +197,7 @@ export default function Header() {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 40,
         duration: 0.3
@@ -219,7 +226,7 @@ export default function Header() {
       opacity: 0,
       x: -20,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 40
       }
@@ -228,7 +235,7 @@ export default function Header() {
       opacity: 1,
       x: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 40
       }
@@ -267,7 +274,7 @@ export default function Header() {
             duration: 2,
             repeat: Infinity,
             repeatDelay: 3, // Wait 3 seconds between animations
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
             times: [0, 0.2, 0.4] // Quick scale up and down, then wait
           }}
         >
@@ -481,7 +488,7 @@ export default function Header() {
                       whileHover={{ 
                         scale: 1.02,
                         x: 8,
-                        transition: { type: "spring", stiffness: 400, damping: 10 }
+                        transition: { type: "spring" as const, stiffness: 400, damping: 10 }
                       }}
                       whileTap={{ scale: 0.98 }}
                     >

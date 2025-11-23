@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer"
+import { Drawer, DrawerContent, DrawerHeader } from "@/components/ui/drawer" // Removed unused DrawerTitle
 
 interface VirtualAccount {
   accountNumber: string;
@@ -19,8 +19,7 @@ export default function AddMoney() {
   const [virtualAccount, setVirtualAccount] = useState<VirtualAccount | null>(null)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
 
-  const accountNumber = "123456789"
-  const accountName = "SunPay NG"
+  // Removed unused variables: accountNumber and accountName
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768)

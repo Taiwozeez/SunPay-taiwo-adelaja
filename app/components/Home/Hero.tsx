@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 export default function HeroSection() {
@@ -21,13 +21,13 @@ export default function HeroSection() {
     },
   ]
 
-  const next = () => setCurrentSlide((prev) => (prev + 1) % slides.length)
+  const next = useCallback(() => setCurrentSlide((prev) => (prev + 1) % slides.length), [slides.length])
   const prev = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
 
   useEffect(() => {
     const timer = setInterval(next, 6000)
     return () => clearInterval(timer)
-  }, [])
+  }, [next]) // Added 'next' to dependencies
 
   const slide = slides[currentSlide]
 
@@ -43,9 +43,9 @@ export default function HeroSection() {
       scale: 1,
       x: 0,
       transition: {
-        opacity: { duration: 1.2, ease: "easeOut" },
-        scale: { duration: 1.5, ease: "easeOut" },
-        x: { duration: 1.2, ease: "easeOut" }
+        opacity: { duration: 1.2, ease: "easeOut" as const },
+        scale: { duration: 1.5, ease: "easeOut" as const },
+        x: { duration: 1.2, ease: "easeOut" as const }
       }
     },
     exit: (direction: number) => ({
@@ -53,9 +53,9 @@ export default function HeroSection() {
       scale: 0.9,
       x: direction > 0 ? -100 : 100,
       transition: {
-        opacity: { duration: 0.8, ease: "easeIn" },
-        scale: { duration: 1, ease: "easeIn" },
-        x: { duration: 0.8, ease: "easeIn" }
+        opacity: { duration: 0.8, ease: "easeIn" as const },
+        scale: { duration: 1, ease: "easeIn" as const },
+        x: { duration: 0.8, ease: "easeIn" as const }
       }
     })
   }
@@ -71,7 +71,7 @@ export default function HeroSection() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         delay: 0.3
       }
     },
@@ -80,7 +80,7 @@ export default function HeroSection() {
       y: -50,
       transition: {
         duration: 0.5,
-        ease: "easeIn"
+        ease: "easeIn" as const
       }
     }
   }
@@ -178,7 +178,7 @@ export default function HeroSection() {
               >
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" as const }}
                 >
                   ▶
                 </motion.span>
@@ -236,7 +236,7 @@ export default function HeroSection() {
             animate={{
               width: index === currentSlide ? 32 : 8,
             }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: "spring" as const, stiffness: 400, damping: 17 }}
           />
         ))}
       </div>
