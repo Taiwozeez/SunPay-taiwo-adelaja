@@ -24,7 +24,7 @@ const DayBox: React.FC<DayBoxProps> = ({
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
         delay: index * 0.2
@@ -45,7 +45,7 @@ const DayBox: React.FC<DayBoxProps> = ({
         whileHover={{ 
           scale: 1.1,
           rotate: isActive ? 0 : 2,
-          transition: { type: "spring", stiffness: 400, damping: 10 }
+          transition: { type: "spring" as const, stiffness: 400, damping: 10 }
         }}
         whileTap={{ scale: 0.95 }}
         animate={{
@@ -57,7 +57,7 @@ const DayBox: React.FC<DayBoxProps> = ({
             : "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)"
         }}
         transition={{
-          type: "spring",
+          type: "spring" as const,
           stiffness: 300,
           damping: 20,
           duration: 0.5
@@ -71,7 +71,7 @@ const DayBox: React.FC<DayBoxProps> = ({
               animate={{ scale: 1, rotate: 0 }}
               exit={{ scale: 0, rotate: 180 }}
               transition={{
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 500,
                 damping: 15
               }}
@@ -104,7 +104,7 @@ const DayBox: React.FC<DayBoxProps> = ({
               : (isFirstBox ? "rgb(120 53 15)" : "rgb(75 85 99)"),
             scale: isActive ? 1.2 : 1
           }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
         >
           {days}
         </motion.span>
@@ -139,7 +139,7 @@ const DayBox: React.FC<DayBoxProps> = ({
         animate={{
           x: isActive ? 10 : 0
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+        transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
       >
         <motion.span
           className={`font-semibold ${
@@ -151,7 +151,7 @@ const DayBox: React.FC<DayBoxProps> = ({
               : (isFirstBox ? "rgb(120 53 15)" : "rgb(75 85 99)"),
             scale: isActive ? 1.05 : 1
           }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
         >
           {label}
         </motion.span>
@@ -172,8 +172,8 @@ const DayBox: React.FC<DayBoxProps> = ({
 
 const Details: React.FC = () => {
   const [activeBox, setActiveBox] = useState<number>(0);
-  const [progress, setProgress] = useState<number>(5.9);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [progress] = useState<number>(5.9); // Removed unused setProgress
+  const [, setIsVisible] = useState<boolean>(false); // Removed unused isVisible
 
   useEffect(() => {
     setIsVisible(true);
@@ -205,7 +205,7 @@ const Details: React.FC = () => {
     { label: "Outstanding Balance", value: "144,000 NGN" },
   ];
 
-  // Animation variants
+  // Animation variants with proper typing
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -223,7 +223,7 @@ const Details: React.FC = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15
       }
@@ -265,7 +265,7 @@ const Details: React.FC = () => {
               y: -5,
               boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
             }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
           >
             <div className="mb-6 pb-4 border-b border-amber-200">
               <motion.h2 
@@ -288,7 +288,7 @@ const Details: React.FC = () => {
                     scale: 1.02,
                     backgroundColor: "rgba(254, 243, 199, 0.5)"
                   }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
                 >
                   <div className="flex-1">
                     <span className="text-amber-700 font-medium text-xs sm:text-sm block">
@@ -309,7 +309,7 @@ const Details: React.FC = () => {
                         : "text-amber-900"
                     }`}
                     whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 10 }}
+                    transition={{ type: "spring" as const, stiffness: 500, damping: 10 }}
                   >
                     {detail.value}
                   </motion.span>
@@ -330,7 +330,7 @@ const Details: React.FC = () => {
                   key={progress}
                   initial={{ scale: 1.5 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                  transition={{ type: "spring" as const, stiffness: 500, damping: 15 }}
                 >
                   {progress}%
                 </motion.span>
@@ -397,7 +397,7 @@ const Details: React.FC = () => {
               y: -5,
               boxShadow: "0 25px 50px -12px rgba(245, 158, 11, 0.25)"
             }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
           >
             <div className="flex flex-col">
               {dayData.map((item, index) => (
@@ -465,7 +465,7 @@ const Details: React.FC = () => {
                 key={activeBox}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                transition={{ type: "spring" as const, stiffness: 500, damping: 15 }}
               >
                 Active Phase: {dayData[activeBox].label}
               </motion.span>
