@@ -64,8 +64,23 @@ export default function PaymentTable() {
 
         {/* Table Container */}
         <div className="relative overflow-x-auto rounded-2xl shadow-lg border border-yellow-200 bg-white scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-gray-100">
-          <div className="absolute bottom-2 right-4 text-xs text-gray-400 md:hidden animate-pulse">
-            ← Scroll →
+          {/* Mobile Scroll Indicator - Centered at the edge */}
+          <div className="md:hidden absolute top-1/2 right-2 transform -translate-y-1/2 z-10">
+            <div className="bg-gray-600/80 rounded-full p-2 animate-pulse">
+              <svg 
+                className="w-4 h-4 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M9 5l7 7-7 7" 
+                />
+              </svg>
+            </div>
           </div>
 
           <table className="w-full min-w-[1000px] text-left border-collapse">
