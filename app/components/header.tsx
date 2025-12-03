@@ -484,7 +484,7 @@ export default function Header() {
                       {/* Profile Header with Taiwo name */}
                       <div className="px-4 py-3 border-b border-gray-100 bg-yellow-50 rounded-t-lg">
                         <p className="text-sm font-medium text-gray-900">Taiwo</p>
-                        <p className="text-xs text-gray-500">Student Account</p>
+                        <p className="text-xs text-gray-500">Account</p>
                       </div>
                       
                       <button
@@ -580,7 +580,7 @@ export default function Header() {
                       {/* Profile Header with Taiwo name */}
                       <div className="px-4 py-3 border-b border-gray-100 bg-yellow-50 rounded-t-lg">
                         <p className="text-sm font-medium text-gray-900">Taiwo</p>
-                        <p className="text-xs text-gray-500">Student Account</p>
+                        <p className="text-xs text-gray-500">Account</p>
                       </div>
                       
                       <button
