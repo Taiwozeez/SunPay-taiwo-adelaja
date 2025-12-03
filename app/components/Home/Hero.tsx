@@ -52,7 +52,6 @@ export default function HeroSection() {
 
   const slide = slides[currentSlide]
 
-  // FIXED: TypeScript compatible variants
   const contentVariants = {
     enter: {
       opacity: 0,
@@ -70,7 +69,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative w-full h-screen flex items-center justify-center text-white overflow-hidden">
-
       {/* CONTINUOUS LEFT SLIDING BACKGROUND */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <div className="relative w-full h-full">

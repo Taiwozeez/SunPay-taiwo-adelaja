@@ -19,6 +19,19 @@ export default function PaymentTable() {
     { date: "2025-11-10", amount: "₦2,300", keycode: "567-890-123-456-789", status: "Successful", ln: "123654987" },
   ]
 
+  const handleApplyFilter = () => {
+    // Filter logic would go here
+    console.log("Applying filter with dates:", { fromDate, toDate })
+    // In a real application, you would filter the payments array based on the selected dates
+  }
+
+  const handleClearFilter = () => {
+    setFromDate("")
+    setToDate("")
+    // Clear any applied filters and show all payments
+    console.log("Clearing filters")
+  }
+
   return (
     <section className="w-full px-4 sm:px-6 md:px-10 lg:px-20 py-16 bg-white">
       <div className="max-w-[1500px] mx-auto">
@@ -59,15 +72,28 @@ export default function PaymentTable() {
                 className="border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full sm:w-[200px]"
               />
             </div>
+
+            {/* Filter Buttons */}
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <button
+                onClick={handleApplyFilter}
+                disabled={!fromDate && !toDate}
+                className="bg-yellow-400 hover:bg-yellow-500 disabled:bg-gray-300 disabled:cursor-not-allowed text-gray-900 font-medium px-4 py-2 rounded-lg transition-colors duration-200 w-full sm:w-auto"
+              >
+                Apply
+              </button>
+              <button
+                onClick={handleClearFilter}
+                className="border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium px-4 py-2 rounded-lg transition-colors duration-200 w-full sm:w-auto"
+              >
+                Clear
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Table Container */}
-        <div className="relative overflow-x-auto rounded-2xl shadow-lg border border-yellow-200 bg-white scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-gray-100">
-          <div className="absolute bottom-2 right-4 text-xs text-gray-400 md:hidden animate-pulse">
-            ← Scroll →
-          </div>
-
+        {/* Desktop Table */}
+        <div className="hidden md:block relative overflow-x-auto rounded-2xl shadow-lg border border-yellow-200 bg-white">
           <table className="w-full min-w-[1000px] text-left border-collapse">
             <thead className="bg-yellow-400 text-white">
               <tr>
@@ -118,6 +144,55 @@ export default function PaymentTable() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Cards */}
+        <div className="md:hidden space-y-4">
+          {payments.map((payment, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-lg border border-yellow-200 p-4 hover:bg-yellow-50 transition duration-150 ease-in-out"
+            >
+              {/* Status at the top */}
+              <div className="mb-3">
+                {payment.status === "Successful" ? (
+                  <span className="inline-block rounded-full bg-green-100 text-green-700 px-3 py-1 text-sm font-semibold">
+                    Successful
+                  </span>
+                ) : (
+                  <span className="inline-block rounded-full bg-red-100 text-red-700 px-3 py-1 text-sm font-semibold">
+                    Failed
+                  </span>
+                )}
+              </div>
+
+              {/* Date */}
+              <div className="mb-3">
+                <div className="text-xs text-gray-500 font-medium mb-1">Date</div>
+                <div className="text-gray-800 text-sm">{payment.date}</div>
+              </div>
+
+              {/* Keycode */}
+              <div className="mb-3">
+                <div className="text-xs text-gray-500 font-medium mb-1">Keycode</div>
+                <div className="font-mono text-gray-700 text-sm">
+                  {payment.status === "Successful" ? payment.keycode : "N/A"}
+                </div>
+              </div>
+
+              {/* Amount and LN in one row */}
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="text-xs text-gray-500 font-medium mb-1">Amount</div>
+                  <div className="font-medium text-gray-900 text-sm">{payment.amount}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-gray-500 font-medium mb-1">LN</div>
+                  <div className="font-mono text-gray-700 text-sm">{payment.ln}</div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
