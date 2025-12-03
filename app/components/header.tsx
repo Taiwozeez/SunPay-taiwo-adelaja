@@ -679,7 +679,7 @@ export default function Header() {
                     </div>
                     <div>
                       <p className="font-semibold text-sm text-black">Taiwo</p>
-                      <p className="text-xs text-gray-700">Student Account</p>
+                      <p className="text-xs text-gray-700">Account</p>
                     </div>
                   </div>
                   <button
