@@ -437,10 +437,10 @@ export default function Header() {
                 type="button"
                 aria-label="Profile menu"
                 onClick={handleProfileClick}
-                className="flex flex-col items-center justify-center focus:outline-none group profile-avatar-button"
+                className="flex items-center gap-2 focus:outline-none group profile-avatar-button"
               >
                 {/* Avatar Container */}
-                <div className="flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-full overflow-hidden border-2 border-white/50 hover:border-white transition-colors mb-0.5">
+                <div className="flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-full overflow-hidden border-2 border-white/50 hover:border-white transition-colors">
                   {!imageError ? (
                     <Image
                       src={avatarImagePath || "/placeholder.svg"}
@@ -458,8 +458,8 @@ export default function Header() {
                   )}
                 </div>
                 
-                {/* "Taiwo" text - only visible on web view (lg and above) */}
-                <span className="hidden lg:block text-[10px] text-white/90 font-medium tracking-tight mt-0.5 group-hover:text-white transition-colors">
+                {/* "Taiwo" text - on the right side of avatar */}
+                <span className="text-sm text-white/90 font-medium tracking-tight group-hover:text-white transition-colors">
                   Taiwo
                 </span>
               </button>
